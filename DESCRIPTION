@@ -1,0 +1,12 @@
+Package: BayesianPickWinner
+Type: Package
+Title: A Bayesian pick-the-winner design in a randomized phase II clinical trial
+Version: 0.1.0
+Authors@R: person("Dung-Tsa", "Chen", email = "Dung-Tsa.Chen@moffitt.org", role = c("aut", "cre"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: An tool to generate a statistical plan
+    for a randomized early phase II clinicla trial.
+License: Moffitt Cancer Center
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
