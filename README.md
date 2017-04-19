@@ -1,10 +1,10 @@
 # Bayesian-pick-the-winner-design
-The tool is to calculate power for the Bayesian pick-the-winner design in a randomized phase II clinical trial. It also generates report and statistical plan so clinicians could easily incorporate it into the clinical trial protocol.
+The tool calculates power for the Bayesian pick-the-winner design in a randomized phase II clinical trial. It also generates report and statistical plan so clinicians could easily incorporate it into the clinical trial protocol.
 (reference: A Bayesian pick-the-winner design in a randomized phase II clinical trial; Chen et al; submitted).
 
 ## Features
 
-* The shiny applictaion provide power calculation for the Bayesian pick-the-winner design in a randomized phase II clinical trial and generates a statistical plan to be easily incorporated  into the clinical trial protocol. 
+* The shiny applictaion provides power calculation for the Bayesian pick-the-winner design in a randomized phase II clinical trial and generates a statistical plan to be easily incorporated  into the clinical trial protocol. 
 
 ## Installation
 
