@@ -30,7 +30,7 @@ tmp99<-get.result()
 
 #Hypothesis for Power Analysis
 ```{r, echo=FALSE, results='asis'}
-cat('Comparison of ',round(tmp99$p20.tmp*100),'% versus ',round(tmp99$p10.tmp*100),'% Response Rate') 
+cat('Comparison of ',round(tmp99$p20*100),'% versus ',round(tmp99$p10*100),'% Response Rate') 
 ```
 
 
