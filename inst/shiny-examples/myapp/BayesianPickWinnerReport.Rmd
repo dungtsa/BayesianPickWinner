@@ -28,39 +28,39 @@ tmp99<-get.result()
 ```
 
 
-#Hypothesis for Power Analysis
+# Hypothesis for Power Analysis
 ```{r, echo=FALSE, results='asis'}
 cat('Comparison of ',round(tmp99$p20*100),'% versus ',round(tmp99$p10*100),'% Response Rate') 
 ```
 
 
-#Sample Size Calculation
+# Sample Size Calculation
 ```{r, echo=FALSE, results='asis'}
 cat(tmp99$a1)
 ```
 
-#Operating Characteristics 
+# Operating Characteristics 
 ```{r, echo=FALSE, results='asis'}
 cat(tmp99$a2)
 ```
 
-##Power Analysis
+## Power Analysis
 ```{r, echo=FALSE, results='asis'}
 cat(tmp99$power)
 ```
 
-##Type I error
+## Type I error
 ```{r, echo=FALSE, results='asis'}
 cat(tmp99$typeI)
 ```
 
-#Summary
+# Summary
 ```{r, echo=FALSE, results='asis'}
 cat(tmp99$a3)
 ```
 
 
-#Tables of Power Anlaysis
+# Tables of Power Anlaysis
 ```{r, echo=FALSE, results='asis'}
 
     tmp98 <- get.result()
