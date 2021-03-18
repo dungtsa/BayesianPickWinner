@@ -7,5 +7,6 @@
 bayes.pick.winner()
 }
 \description{
-This function will run Shiny application for the Bayesian pick the winner design in randomized phase II trial
+This function will run Shiny application for the Bayesian pick the winner design in randomized phase II trials.
+             two-arm stage one and two and a two stage mulitple arm design.
 }

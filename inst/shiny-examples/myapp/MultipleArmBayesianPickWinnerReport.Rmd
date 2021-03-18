@@ -1,0 +1,78 @@
+---
+title: A Bayesian Pick-the-Winner design in a randomized phase II clinical trial
+author: "Chen et.al"
+output:
+  word_document: default
+header-includes: \usepackage{bbm}
+---
+========================================================
+
+```{r library, echo=FALSE,comment="",warning=FALSE,message=FALSE}
+library(knitr)
+library(rmarkdown)
+options(scipen=3)
+```
+
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width=60)
+opts_chunk$set(comment = "", warning = FALSE, message = FALSE, echo = TRUE, tidy = FALSE, size="small",fig.height=5)
+```
+
+
+```{r, echo=FALSE}
+tmp99<-get.result.MultiArm() 
+```
+
+
+# Hypothesis for Power Analysis
+```{r, echo=FALSE, results='asis'}
+cat('Comparison of ',round(tmp99$p20*100),'% versus ',round(tmp99$p10*100),'% response Rate') 
+```
+
+
+# Sample Size Calculation
+```{r, echo=FALSE, results='asis'}
+cat(tmp99$a1)
+```
+
+# Operating Characteristics 
+```{r, echo=FALSE, results='asis'}
+cat(tmp99$a2)
+```
+
+## Power Analysis
+```{r, echo=FALSE, results='asis'}
+cat(tmp99$power)
+```
+
+## Type I error
+```{r, echo=FALSE, results='asis'}
+cat(tmp99$typeI)
+```
+
+# Summary
+```{r, echo=FALSE, results='asis'}
+cat(tmp99$a3)
+```
+
+
+# Tables of Power Anlaysis
+```{r, echo=FALSE, results='asis'}
+     tmp98 <- get.result.MultiArm()
+        
+        tmp3<-list(H1=tmp98$H1.table,H0=tmp98$H0.table)
+        
+        for(i in 1:length(tmp3))
+        {
+            tmp40<-tmp3[[i]]
+            cat('\n-----------------------------------------------\n')
+            cat('\n\n',tmp40$scenario,'\n')
+            print(kable(tmp40$table))
+            cat('\n',tmp40$arm.pass,'\n')
+            cat('\n',tmp40$summary,'\n') 
+        }
+       
+    
+```
+ 
