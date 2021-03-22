@@ -823,7 +823,8 @@ server  <-  function(input,output){
         },
 
         content = function(file) {
-            out  <-  render('/Users/chend/Desktop/Bayesian_Pick_Winner/Bayesian_Pick_Winner/MultipleArmBayesianPickWinnerReport.Rmd')
+            #out  <-  render('/Users/chend/Desktop/Bayesian_Pick_Winner/Bayesian_Pick_Winner/MultipleArmBayesianPickWinnerReport.Rmd')
+            out  <-  render('MultipleArmBayesianPickWinnerReport.Rmd')
             #file.rename(out, file)
             file.copy(out,file)
         }
