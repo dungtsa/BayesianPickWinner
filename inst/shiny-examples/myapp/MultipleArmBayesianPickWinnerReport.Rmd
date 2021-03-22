@@ -1,5 +1,5 @@
 ---
-title: A Bayesian Pick-the-Winner design in a randomized phase II clinical trial
+title: A Bayesian Pick-the-Winner design in a multiple-arms randomized phase II clinical trial
 author: "Chen et.al"
 output:
   word_document: default
@@ -21,13 +21,13 @@ opts_chunk$set(comment = "", warning = FALSE, message = FALSE, echo = TRUE, tidy
 
 
 ```{r, echo=FALSE}
-tmp99<-get.result.MultiArm() 
+tmp99<-get.result.MultiArm()
 ```
 
 
 # Hypothesis for Power Analysis
 ```{r, echo=FALSE, results='asis'}
-cat('Comparison of ',round(tmp99$p20*100),'% versus ',round(tmp99$p10*100),'% response Rate') 
+cat('Comparison of ',round(tmp99$p20*100),'% versus ',round(tmp99$p10*100),'% response Rate',sep='') 
 ```
 
 

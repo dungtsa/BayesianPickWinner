@@ -15,10 +15,10 @@ Bayesian_posterior_probability  <-  function(n_response_armA, n_nonresponse_armA
     # n.sim: the number of simulations
 
     response_rate_A  <-  rbeta(sim.n,  1 + n_response_armA,
-                            1 + n_nonresponse_armA);
+                               1 + n_nonresponse_armA);
 
     response_rate_B  <-  rbeta(sim.n, 1 + n_response_armB,
-                             1 + n_nonresponse_armB)
+                               1 + n_nonresponse_armB)
 
     mean(response_rate_B > response_rate_A)  # ---- this is Bayesian posterior probability, Pr(B>A)
 
@@ -26,9 +26,9 @@ Bayesian_posterior_probability  <-  function(n_response_armA, n_nonresponse_armA
 
 
 Bayesian.simon.two.stage.multi.arm.fun <- function(sim.n0 = 10, study.design='optimal', simon.p.type1=.1,
-                                                 simon.p.type2=.1, beta.prior.tmp=list(a=1,b=1),
-                                                 p10=0.2, p20=0.4, baye.threshold.tmp=0.8,
-                                                 n.max=NULL, arm.name=c('A','B','C'), winner.arm='C')
+                                                   simon.p.type2=.1, beta.prior.tmp=list(a=1,b=1),
+                                                   p10=0.2, p20=0.4, baye.threshold.tmp=0.8,
+                                                   n.max=NULL, arm.name=c('A','B','C'), winner.arm='C')
 {
     require(clinfun)
     #  set.seed(1000)
@@ -70,10 +70,10 @@ Bayesian.simon.two.stage.multi.arm.fun <- function(sim.n0 = 10, study.design='op
             # n.sim: the number of simulations
 
             response_rate_A  <- rbeta(sim.n,  beta.prior$a + n_response_armA,
-                                    beta.prior$b + n_nonresponse_armA)
+                                      beta.prior$b + n_nonresponse_armA)
 
             response_rate_B  <-  rbeta(sim.n, beta.prior$a + n_response_armB,
-                                     beta.prior$b + n_nonresponse_armB)
+                                       beta.prior$b + n_nonresponse_armB)
 
             mean(response_rate_B > response_rate_A)  # ---- this is Bayesian posterior probability, Pr(B>A)
         }
@@ -664,7 +664,7 @@ ui  <-  fluidPage(
                      ))),
 
 
-        tabPanel("Calculaiton of Bayesian posterior probability",
+        tabPanel("Calculation of Bayesian posterior probability",
                  sidebarLayout(
                      sidebarPanel(
 
@@ -701,8 +701,8 @@ server  <-  function(input,output){
         bayes.threshold <- input$BayesianThreshold
         beta.prior.tmp <- as.numeric(unlist(strsplit(input$BetaPrior,",")))
 
-        tmp99 <- Bayesian.simon.two.stage.multi.arm.fun(sim.n0=sim.n0.tmp, 
-                                                        study.design=study.design.tmp, 
+        tmp99 <- Bayesian.simon.two.stage.multi.arm.fun(sim.n0=sim.n0.tmp,
+                                                        study.design=study.design.tmp,
                                                         beta.prior.tmp=list(a=beta.prior.tmp[1],
                                                                             b=beta.prior.tmp[2]),
                                                         p10=p10.tmp,
@@ -741,28 +741,28 @@ server  <-  function(input,output){
                  Bay.prob.winner=winner.prob,
                  probability.success=ans$prob.success)
         }
-        ,simplify=F) 
+        ,simplify=F)
 
 
 
         a1 <- paste('From historical data, we will consider a treatment with ',round(p10*100),'% response rate as ineffective. We will use ',round(p20*100),'% response rate as a promising result to warrant further study. In other words, we are interested in at least ',round((p20-p10)*100),'% (',round(p20*100),'% vs. ',round(p10*100),'%) improvement in treatment efficacy. For each arm, using a Simon ',design.name, ' two-stage design with ',round(alpha1*100),'% type I error rate and ', round(beta1*100),'% type II error rate, ',n1 ,' patients will be enrolled in the first stage of the trial. If ',n.stop1 ,' or fewer patients respond, the treatment will be stopped. If ',n.stop1+1 ,' or more patients show a response, ', n.total-n1,' additional patients (a total of ',n.total ,' patients per group) will be enrolled. If the total number responding is ',n.stop2,' or less, we will conclude that the treatment is not effective.',if(!is.null(n.max)) paste(' We plan to enroll a maximum of ',n.max, ' patients in order to have ',round( (n.total*2)/n.max*100), '% of the enrolled patients remain on the trial if both arms finish the 2nd stage.',sep=''),
-                  ' If all arms fail at the first or second stage, the trial will stop. No winner will be claimed. The sample size will be ',n1*length(arm.name), ' if all arms fail at the first stage and ',n1*(length(arm.name)-1)+n.total, ' if only the targeted arm passes the first stage. If only the targeted arm passes the second stage, it will be claimed as the winner. When the targeted arm and at least one non-targeted arm pass the second stage, we will use the posterior probability, $Pr(targeted arm> non-targeted arm with the highest response rate)$, (probability of the response rate in targeted arm higher than in th non-targeted arms) to select the winner. A non-informative prior of beta distribution, beta(1,1) in both arms will be used to calculate the posterior probability. The targeted arm will be claimed as the winner if $Pr(targeted arm> non-targeted arms)>\\delta=$',bayes.threshold,'.',sep='')
+                    ' If all arms fail at the first or second stage, the trial will stop. No winner will be claimed. The sample size will be ',n1*length(arm.name), ' if all arms fail at the first stage and ',n1*(length(arm.name)-1)+n.total, ' if only the targeted arm passes the first stage. If only the targeted arm passes the second stage, it will be claimed as the winner. When the targeted arm and at least one non-targeted arm pass the second stage, we will use the posterior probability, $Prob($ targeted arm $>$ non-targeted arm with the highest response rate$)$, (i.e., probability of the response rate in targeted arm higher than in the non-targeted arms) to select the winner. A non-informative prior of beta distribution, beta(1,1) in each arm will be used to calculate the posterior probability. The targeted arm will be claimed as the winner if   $Prob($targeted arm > non-targeted arms)> $\\delta$ =',bayes.threshold,'.',sep='')
 
-        a2 <- paste('The operating characteristics of the design is evaluated by simulation (',sim.n0.tmp,' times) using R software (www.r-project.org) with "clinfun" package. In particular, we are interested in the probability of (correctly) selecting the targeted arm (Arm ',winner.name,') as superior to the other arms if it is truly superior, and conversely, the probability of (incorrectly) selecting the targeted arm that is no better than the other arms. ',sep='')
+        a2 <- paste('The operating characteristics of the design is evaluated by simulation (',sim.n0.tmp,' times) using R software (www.r-project.org) with "clinfun" and “BayesianPickWinner” packages. In particular, we are interested in the probability of (correctly) selecting the targeted arm (Arm ',winner.name,') as superior to the other arms if it is truly superior, and conversely, the probability of (incorrectly) selecting the targeted arm that is no better than the other arms. ',sep='')
 
         a21 <- paste('Power: Assuming that the true probabilities of response is ',p20*100,'% in the targeted arm (Arm ',winner.name,'), and ',p10*100,'% in other arms (',round((p20-p10)*100),'% difference of response rate), the overall probability (power) of correctly choosing the targeted arm as superior is ',round(bb1$H1$probability.success*100),'% on the basis of superiority shown at the end of the trial. The probability of stopping all other arms early and declaring the targeted arm superior at the end of the trial is ', round(bb1$H1$table['failure.on.all.non.winner.arms','winner.arm_pass']*100),'%. There are ',round(bb1$H1$table['at.least.one.pass.in.non.winner.arms','winner.arm_pass']*100),'% of at least one non-targeted arm and the targeted arm passing the second stage with ',round(bb1$H1$Bay.prob.winner*100),'% claiming the targeted arm as the winner by the Bayesian posterior probability.',sep='')
 
-        a22 <- paste('Type I error: In the null hypothesis of a ',p10*100,'% response rate in all arms, there are ',round(bb1$H0$probability.success*100),'% misclassifying the targeted arm as winner (i.e., ',round(bb1$H0$probability.success*100),'% type I error). Among them, only ',round(bb1$H0$table['at.least.one.pass.in.non.winner.arms','winner.arm_pass']*100,2),'% has both arms passing the 2nd stage, and less than ',round(bb1$H0$Bay.prob.winner*100,2),'% misclassifying the targeted arm as winner. ',sep='')
+        a22 <- paste('Type I error: In the null hypothesis of a ',p10*100,'% response rate in all arms, there are ',round(bb1$H0$probability.success*100),'% misclassifying the targeted arm as winner (i.e., ',round(bb1$H0$probability.success*100),'% type I error). Among them, only ',round(bb1$H0$table['at.least.one.pass.in.non.winner.arms','winner.arm_pass']*100,2),'% has at least one non-targeted arm and the targeted arm passing the 2nd stage, and less than ',round(bb1$H0$Bay.prob.winner*100,2),'% misclassifying the targeted arm as winner. ',sep='')
         a23 <- paste('Summary: With $\\delta$=',bayes.threshold,', the design has a ',round(bb1$H1$probability.success*100),'% power to detect a ',round((p20-p10)*100),'% difference of response rate. The type I error is controlled at ',round(bb1$H0$probability.success*100),'% when all arms have a ',p10*100,'% response rate. ',sep='')
 
 
         fun1 <- function(x,hypothesis='H1',p.list=list(p10=.15,p20=.35))
         {
-            list(table=x$table,arm.pass=paste('Probability of at least one non-targeted arm and the targeted arm passing the 2nd stage is ', round(x$table['at.least.one.pass.in.non.winner.arms','winner.arm_pass']*100,2),'%. Among them,  the targeted arm claims ',round(x$Bay.prob.winner*100,2),'% as winner',sep=''),summary=paste(ifelse(hypothesis=='H1','Overall power of the targeted arm= ','Type I error= '),round(x$probability.success*100),'%',sep=''),scenario=paste(hypothesis,': response rate of the targeted arm=',p.list$p20,' versus ','response rate of non-targeted arms=',p.list$p10,sep=''))
+            list(table=x$table,arm.pass=paste('Probability of at least one non-targeted arm and the targeted arm passing the 2nd stage is ', round(x$table['at.least.one.pass.in.non.winner.arms','winner.arm_pass']*100,2),'%. Among them,  the targeted arm claims ',round(x$Bay.prob.winner*100,2),'% as winner.',sep=''),summary=paste(ifelse(hypothesis=='H1','Overall power of the targeted arm= ','Type I error= '),round(x$probability.success*100),'%',sep=''),scenario=paste(hypothesis,': response rate of the targeted arm=',p.list$p20,' versus ','response rate of non-targeted arms=',p.list$p10,sep=''))
         }
 
         H1.table <- fun1(bb1$H1,hypothesis = 'H1',p.list = list(p10=p10,p20=p20))
-        H0.table <- fun1(bb1$H1,hypothesis = 'H0',p.list = list(p10=p10,p20=p10))
+        H0.table <- fun1(bb1$H0,hypothesis = 'H0',p.list = list(p10=p10,p20=p10))
 
         tmp98 <- list(H1.table=H1.table,H0.table=H0.table,a1=a1,a2=a2,power=a21,typeI=a22,a3=a23,p10=p10,p20=p20)
 
@@ -775,7 +775,7 @@ server  <-  function(input,output){
     output$hypothesisMultiArm  <-  renderText({
         res  <-  get.result.MultiArm()
 
-        paste('Comparison of ',round(res$p20*100),'% versus ',round(res$p10*100),'% response Rate')
+        paste('Comparison of ',round(res$p20*100),'% versus ',round(res$p10*100),'% response rate',sep='')
 
     })
 
@@ -823,7 +823,7 @@ server  <-  function(input,output){
         },
 
         content = function(file) {
-            out  <-  render('MultipleArmBayesianPickWinnerReport.Rmd')
+            out  <-  render('/Users/chend/Desktop/Bayesian_Pick_Winner/Bayesian_Pick_Winner/MultipleArmBayesianPickWinnerReport.Rmd')
             #file.rename(out, file)
             file.copy(out,file)
         }
@@ -1062,7 +1062,7 @@ server  <-  function(input,output){
 
         fun1 <- function(x)
         {
-            rbind(x$table,c(paste('Both arms pass: ', round(x$table['A.pass','B.pass']*100,2),'%. Among them,  Arm B claims ',round(x$Bay.prob.B.winner*100,2),'% as winner',sep=''),paste('Overall power of Arm B= ',round(x$power.B*100),'%',sep='')))
+            rbind(x$table,c(paste('Both arms pass: ', round(x$table['A.pass','B.pass']*100,2),'%. Among them,  Arm B claims ',round(x$Bay.prob.B.winner*100,2),'% as winner.',sep=''),paste('Overall power of Arm B= ',round(x$power.B*100),'%.',sep='')))
         }
         fun2 <- function(x)
         {
