@@ -14,6 +14,7 @@ Simply run the following from an R console:
 if (!require("devtools"))
   install.packages("devtools")
 devtools::install_github("dungtsa/BayesianPickWinner",force = TRUE)
+install.packages("clinfun")
 ```
 
 ## Getting Started
