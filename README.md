@@ -6,6 +6,12 @@ The tool calculates power for the Bayesian pick-the-winner design in a randomize
 
 * The shiny applictaion provides power calculation for the Bayesian pick-the-winner design in a randomized phase II clinical trial and generates a statistical plan to be easily incorporated  into the clinical trial protocol. 
 
+## Reference
+
+* Chen DT, Huang PY, Lin HY, Chiappori AA, Gabrilovich DI, Haura EB, Antonia SJ, Gray JE. A Bayesian pick-the-winner design in a randomized phase II clinical trial. Oncotarget. 2017 Jul 7;8(51):88376-88385. doi: 10.18632/oncotarget.19088. PMID: 29179442; PMCID: PMC5687612.
+
+* The shiny applictaion provides power calculation for the Bayesian pick-the-winner design in a randomized phase II clinical trial and generates a statistical plan to be easily incorporated  into the clinical trial protocol.
+  
 ## Installation
 
 Simply run the following from an R console:
